@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#6b1f5c" />
+  <title>Memory FABERLIC</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="app__header">
+      <div class="app__brand">
+        <span class="app__logo" aria-hidden="true">F</span>
+        <div class="app__titles">
+          <h1 class="app__title">Memory FABERLIC</h1>
+          <p class="app__subtitle">Проверь свои знания о FABERLIC в игре на память</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="app__main">
+      <!-- 1. Start -->
+      <section class="screen screen--active" id="screen-start" data-screen="start" aria-labelledby="start-heading">
+        <h2 id="start-heading" class="visually-hidden">Главное меню</h2>
+        <div class="hero">
+          <p class="hero__lead">Индивидуальная обучающая игра: пары карточек, вопросы и очки.</p>
+          <div class="hero__actions">
+            <button type="button" class="btn btn--primary" id="btn-start-game">Начать игру</button>
+            <button type="button" class="btn btn--secondary" id="btn-how-to-play">Как играть</button>
+            <button type="button" class="btn btn--ghost" id="btn-select-round-from-start">Выбрать раунд</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Rules -->
+      <section class="screen" id="screen-rules" data-screen="rules" aria-labelledby="rules-heading" hidden>
+        <h2 id="rules-heading">Как играть</h2>
+        <ol class="rules-list">
+          <li>Открывай по 2 карточки</li>
+          <li>Найди одинаковую пару</li>
+          <li>Получай очки за найденную пару</li>
+          <li>После пары ответь на вопрос</li>
+          <li>За правильный ответ получай дополнительные очки</li>
+          <li>Пройди все раунды и посмотри итог</li>
+        </ol>
+        <div class="screen__actions">
+          <button type="button" class="btn btn--primary" id="btn-rules-play">Играть</button>
+          <button type="button" class="btn btn--ghost" id="btn-rules-back">Назад</button>
+        </div>
+      </section>
+
+      <!-- 3. Round selection -->
+      <section class="screen" id="screen-rounds" data-screen="rounds" aria-labelledby="rounds-heading" hidden>
+        <h2 id="rounds-heading">Выбор раунда</h2>
+        <div class="round-cards" id="round-cards"></div>
+        <div class="screen__actions screen__actions--stack">
+          <button type="button" class="btn btn--primary" id="btn-play-all-order">Пройти всё по порядку</button>
+          <button type="button" class="btn btn--ghost" id="btn-rounds-back">Назад</button>
+        </div>
+      </section>
+
+      <!-- 4. Game -->
+      <section class="screen" id="screen-game" data-screen="game" aria-labelledby="game-round-title" hidden>
+        <div class="game-bar">
+          <div class="game-bar__info">
+            <h2 id="game-round-title" class="game-bar__round">Раунд</h2>
+            <p class="game-bar__stats">
+              <span>Счёт: <strong id="game-score">0</strong></span>
+              <span class="game-bar__dot" aria-hidden="true">·</span>
+              <span>Пары: <strong id="game-pairs">0 / 8</strong></span>
+            </p>
+            <p class="game-bar__progress"><span class="game-bar__progress-label">Прогресс:</span> <span id="game-progress-text">0 / 8 пар</span></p>
+          </div>
+          <div class="game-bar__actions">
+            <button type="button" class="btn btn--small btn--ghost" id="btn-game-menu">В меню</button>
+            <button type="button" class="btn btn--small btn--secondary" id="btn-game-reset">Сбросить раунд</button>
+          </div>
+        </div>
+        <div class="board-wrap">
+          <div class="board" id="board" role="grid" aria-label="Игровое поле из карточек"></div>
+        </div>
+      </section>
+
+      <!-- 5. Question modal -->
+      <div class="modal" id="modal-question" role="dialog" aria-modal="true" aria-labelledby="question-title" hidden>
+        <div class="modal__backdrop" data-close="false"></div>
+        <div class="modal__panel">
+          <p class="modal__badge" id="question-badge">Пара найдена</p>
+          <h3 class="modal__title" id="question-title">Вопрос</h3>
+          <p class="modal__text" id="question-text"></p>
+          <div class="answers" id="question-answers" role="radiogroup" aria-labelledby="question-title"></div>
+          <button type="button" class="btn btn--primary btn--block" id="btn-confirm-answer" disabled>Подтвердить ответ</button>
+          <div class="question-feedback" id="question-feedback" hidden>
+            <p class="question-feedback__status" id="feedback-status"></p>
+            <p class="question-feedback__correct" id="feedback-correct"></p>
+            <p class="question-feedback__points" id="feedback-points"></p>
+            <button type="button" class="btn btn--primary btn--block" id="btn-question-continue">Продолжить</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Round result -->
+      <section class="screen" id="screen-round-result" data-screen="round-result" aria-labelledby="round-result-heading" hidden>
+        <h2 id="round-result-heading">Итог раунда</h2>
+        <div class="result-card">
+          <p class="result-card__label" id="round-result-name"></p>
+          <ul class="result-stats">
+            <li>Найдено пар: <strong id="round-result-pairs"></strong></li>
+            <li>Правильных ответов: <strong id="round-result-correct"></strong></li>
+            <li>Очки за раунд: <strong id="round-result-score"></strong></li>
+          </ul>
+          <p class="result-grade" id="round-result-grade"></p>
+        </div>
+        <div class="screen__actions screen__actions--stack">
+          <button type="button" class="btn btn--primary" id="btn-next-round">Следующий раунд</button>
+          <button type="button" class="btn btn--secondary" id="btn-replay-round">Переиграть раунд</button>
+          <button type="button" class="btn btn--ghost" id="btn-round-result-menu">В меню</button>
+        </div>
+      </section>
+
+      <!-- 7. Final -->
+      <section class="screen" id="screen-final" data-screen="final" aria-labelledby="final-heading" hidden>
+        <h2 id="final-heading">Итог игры</h2>
+        <div class="result-card result-card--final">
+          <p class="result-card__player" id="final-player-status"></p>
+          <ul class="result-stats">
+            <li>Всего пар: <strong id="final-pairs"></strong></li>
+            <li>Правильных ответов: <strong id="final-correct"></strong></li>
+            <li>Итоговый счёт: <strong id="final-score"></strong></li>
+          </ul>
+        </div>
+        <div class="screen__actions screen__actions--stack">
+          <button type="button" class="btn btn--primary" id="btn-final-restart">Пройти заново</button>
+          <button type="button" class="btn btn--secondary" id="btn-final-select-round">Выбрать раунд</button>
+          <button type="button" class="btn btn--ghost" id="btn-final-reset-progress">Сбросить прогресс</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app__footer">
+      <p class="app__hint">+10 за пару · +5 за верный ответ · +10 бонус за раунд · макс. 390</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
