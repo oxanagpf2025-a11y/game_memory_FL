@@ -12,10 +12,343 @@
   const SCORE_CORRECT = 5;
   const SCORE_ROUND_BONUS = 10;
   const PAIRS_PER_ROUND = 8;
-  /** Макс. очки за раунд: все пары + все верные ответы + бонус */
-  const MAX_ROUND_SCORE = PAIRS_PER_ROUND * SCORE_PAIR + PAIRS_PER_ROUND * SCORE_CORRECT + SCORE_ROUND_BONUS;
 
-  const rounds = window.GAME_DATA && Array.isArray(window.GAME_DATA.rounds) ? window.GAME_DATA.rounds : [];
+  const rounds = [
+    {
+      id: 1,
+      title: "Продуктовый мир FABERLIC",
+      description: "Проверь знания о продукции и сериях FABERLIC",
+      cards: [
+        {
+          id: "oxygen_cosmetics",
+          title: "Кислородная косметика",
+          image: "assets/round1/oxygen_cosmetics.png",
+          question:
+            "С каким направлением у FABERLIC в первую очередь ассоциируется бренд компании?",
+          answers: [
+            "С кислородной косметикой",
+            "Только с парфюмерией",
+            "Только с бытовой химией",
+            "Только с декоративной косметикой",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "wellness",
+          title: "Wellness",
+          image: "assets/round1/wellness.png",
+          question: "Что относится к направлению Wellness в FABERLIC?",
+          answers: [
+            "Продукты для здоровья и баланса",
+            "Только лаки для ногтей",
+            "Только средства для уборки",
+            "Только мужская парфюмерия",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "iseul",
+          title: "iSeul",
+          image: "assets/round1/iseul.png",
+          question: "С каким направлением связана линейка iSeul?",
+          answers: [
+            "Очищение и уход за кожей",
+            "Автомобильные товары",
+            "Украшения",
+            "Товары для кухни",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "glam_team",
+          title: "Glam Team",
+          image: "assets/round1/glam_team.png",
+          question: "Какое направление ближе всего связано с серией Glam Team?",
+          answers: [
+            "Декоративная косметика и макияж",
+            "Средства для стирки",
+            "БАДы",
+            "Товары для путешествий",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "oxiology",
+          title: "Oxiology",
+          image: "assets/round1/oxiology.png",
+          question: "С каким назначением чаще всего связывают линейку Oxiology?",
+          answers: [
+            "Уход за кожей лица",
+            "Автоаксессуары",
+            "Средства для посуды",
+            "Канцтовары",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "home_care",
+          title: "Уход за домом",
+          image: "assets/round1/home_care.png",
+          question: "Какие товары относятся к категории ухода за домом?",
+          answers: [
+            "Средства для уборки и чистоты",
+            "Только бижутерия",
+            "Только женская одежда",
+            "Только ароматы",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "perfume",
+          title: "Парфюмерия",
+          image: "assets/round1/perfume.png",
+          question: "Что включает направление парфюмерии FABERLIC?",
+          answers: [
+            "Женские, мужские и семейные ароматы",
+            "Только шампуни",
+            "Только витамины",
+            "Только кремы для рук",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "skincare_series",
+          title: "Серии ухода",
+          image: "assets/round1/skincare_series.png",
+          question: "Что обычно объединяет серии ухода FABERLIC?",
+          answers: [
+            "Системный подход к ежедневному уходу",
+            "Только товары для кухни",
+            "Только товары для автомобиля",
+            "Только аксессуары",
+          ],
+          correctAnswer: 0,
+        },
+      ],
+    },
+    {
+      id: 2,
+      title: "История и ценности FABERLIC",
+      description: "Факты о компании, ценностях и развитии бренда",
+      cards: [
+        {
+          id: "y1997",
+          title: "1997",
+          image: "assets/round2/y1997.png",
+          question: "Что символизирует для FABERLIC число 1997?",
+          answers: [
+            "Год основания компании",
+            "Год выхода первого каталога на 1000 страниц",
+            "Количество стран в присутствии бренда",
+            "Внутренний код отдела логистики",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "nechaev",
+          title: "Алексей Нечаев",
+          image: "assets/round2/nechaev.png",
+          question: "Какую роль в истории FABERLIC чаще всего связывают с Алексеем Нечаевым?",
+          answers: [
+            "Предприниматель и основатель компании",
+            "Главный технолог завода парфюмерии",
+            "Автор дизайна первого логотипа каталога",
+            "Руководитель службы доставки",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "brand_name",
+          title: "FABERLIC",
+          image: "assets/round2/brand.png",
+          question: "Как в игре чаще всего описывают FABERLIC как компанию?",
+          answers: [
+            "Международная компания с собственной продукцией и сообществом консультантов",
+            "Только сеть розничных магазинов без каталога",
+            "Исключительно онлайн-маркетплейс без производства",
+            "Региональный бренд одной страны",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "production",
+          title: "Производство",
+          image: "assets/round2/production.png",
+          question: "Что важно подчеркнуть про продукцию FABERLIC в контексте «своё производство»?",
+          answers: [
+            "Собственное производство и контроль качества — часть позиционирования бренда",
+            "Вся продукция только закупается у сторонних брендов",
+            "Производство не связано с ассортиментом каталога",
+            "Продукция выпускается только за рубежом без контроля",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "slogan_mld",
+          title: "Мечтай! Живи! Действуй!",
+          image: "assets/round2/slogan.png",
+          question: "Какой смысл обычно вкладывают в слоган «Мечтай! Живи! Действуй!»?",
+          answers: [
+            "Вдохновение на развитие и активную жизнь",
+            "Призыв только к спортивным тренировкам",
+            "Слоган только для детской линейки",
+            "Техническое сообщение для партнёров склада",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "company",
+          title: "Компания",
+          image: "assets/round2/company.png",
+          question: "Что отражает формулировка «FABERLIC как компания» в обучающих материалах?",
+          answers: [
+            "Устойчивый бизнес, продукты и развитие партнёрской сети",
+            "Только производство упаковки",
+            "Только благотворительность без коммерции",
+            "Только интернет-сервис без каталога",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "development",
+          title: "Развитие",
+          image: "assets/round2/development.png",
+          question: "Что обычно относят к «развитию» в FABERLIC?",
+          answers: [
+            "Рост ассортимента, рынков и возможностей для партнёров",
+            "Только уменьшение числа категорий товаров",
+            "Отказ от обучения консультантов",
+            "Только сокращение производства",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "values",
+          title: "Ценности",
+          image: "assets/round2/values.png",
+          question: "Зачем в обучении FABERLIC отдельно выделяют блок «ценности»?",
+          answers: [
+            "Чтобы согласовать поведение бренда и партнёров с миссией компании",
+            "Чтобы запомнить только цены из каталога",
+            "Чтобы изучить только историю упаковки",
+            "Чтобы заменить продуктовое обучение",
+          ],
+          correctAnswer: 0,
+        },
+      ],
+    },
+    {
+      id: 3,
+      title: "Бизнес с FABERLIC",
+      description: "Программы, статусы и инструменты партнёра",
+      cards: [
+        {
+          id: "start_program",
+          title: "Стартовая программа",
+          image: "assets/round3/start_program.png",
+          question: "Для чего предназначена стартовая программа нового партнёра FABERLIC?",
+          answers: [
+            "Помочь быстро разобраться в первых шагах и инструментах бизнеса",
+            "Заменить каталог полностью",
+            "Дать только скидку на бытовую химию без обучения",
+            "Отключить доступ к личному кабинету",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "school",
+          title: "Школа FABERLIC",
+          image: "assets/round3/school.png",
+          question: "Что даёт Школа FABERLIC партнёру?",
+          answers: [
+            "Системное обучение навыкам продаж, продукту и развитию структуры",
+            "Только разовый подарок без программы",
+            "Только доступ к складу",
+            "Только оформление медицинской страховки",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "nk",
+          title: "НК",
+          image: "assets/round3/nk.png",
+          question: "Что обычно означает аббревиатура «НК» в контексте бизнеса FABERLIC?",
+          answers: [
+            "Начинающий консультант / стартовый статус в структуре",
+            "Налоговый кодекс компании",
+            "Номер кредитной карты",
+            "Нейтральный каталог без товаров",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "vip",
+          title: "VIP",
+          image: "assets/round3/vip.png",
+          question: "Какой смысл чаще всего вкладывают в статус VIP в программе FABERLIC?",
+          answers: [
+            "Повышенные возможности и мотивация для активных партнёров",
+            "Статус только для сотрудников офиса без продаж",
+            "Отказ от участия в акциях",
+            "Работа только офлайн без каталога",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "millionaires_club",
+          title: "Клуб Миллионеров",
+          image: "assets/round3/millionaires_club.png",
+          question: "Что символизирует «Клуб Миллионеров» в мотивационной линейке FABERLIC?",
+          answers: [
+            "Сообщество лидеров с высокими результатами и целями",
+            "Закрытый клуб только покупателей без регистрации",
+            "Программа только для сотрудников завода",
+            "Раздел каталога с техникой",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "faberlic_drive",
+          title: "FABERLIC DRIVE",
+          image: "assets/round3/faberlic_drive.png",
+          question: "С чем чаще всего связывают программу FABERLIC DRIVE?",
+          answers: [
+            "Мотивационная программа с призами за выполнение условий",
+            "Только доставка грузовиками",
+            "Только тест-драйв автомобилей завода",
+            "Внутренний чат без призов",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "catalog",
+          title: "Каталог",
+          image: "assets/round3/catalog.png",
+          question: "Какую роль играет каталог FABERLIC в бизнесе консультанта?",
+          answers: [
+            "Основной инструмент презентации ассортимента и заказов",
+            "Только декоративный буклет без цен",
+            "Документ только для бухгалтерии",
+            "Список только украшений без других категорий",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          id: "one_million",
+          title: "1М",
+          image: "assets/round3/one_million.png",
+          question: "Что обычно обозначает «1М» в контексте целей и мотивации FABERLIC?",
+          answers: [
+            "Ориентир по объёму личных продаж или масштабу бизнеса (миллион)",
+            "Один менеджер на весь регион",
+            "Первый месяц без заказов",
+            "Только один миллилитр продукции в подарок",
+          ],
+          correctAnswer: 0,
+        },
+      ],
+    },
+  ];
 
   /** @returns {ProgressState} */
   function defaultProgress() {
@@ -77,17 +410,6 @@
     return `linear-gradient(145deg, hsl(${h1}, 55%, 38%), hsl(${h2}, 60%, 24%))`;
   }
 
-  function getRoundQuestions(def) {
-    if (Array.isArray(def.questions) && def.questions.length > 0) return def.questions;
-    return def.cards.filter((c) => Array.isArray(c.answers) && typeof c.question === "string");
-  }
-
-  function pickNextQuestion(def, usedQuestionIds) {
-    const pool = getRoundQuestions(def).filter((q) => !usedQuestionIds.has(q.id));
-    if (pool.length === 0) return null;
-    return pool[Math.floor(Math.random() * pool.length)];
-  }
-
   /** @type {ProgressState} */
   let progress = loadProgress();
 
@@ -97,7 +419,7 @@
   /** @type {GameSession | null} */
   let session = null;
 
-  /** @type {{ questionDef: QuestionDef, pairScore: number } | null} */
+  /** @type {{ cardDef: CardDef, pairScore: number } | null} */
   let pendingQuestion = null;
 
   let playAllSequence = false;
@@ -236,20 +558,25 @@
     session.deck.forEach((item, index) => {
       const cardDef = def.cards.find((c) => c.id === item.cardId);
       const wrap = document.createElement("div");
-      const imageMode = roundId === 1 ? "card--contain" : "card--cover";
-      wrap.className = `card ${imageMode}`;
+      wrap.className = "card";
       wrap.setAttribute("role", "gridcell");
       wrap.dataset.index = String(index);
       wrap.innerHTML = `
         <div class="card__inner">
+          <div class="card__face card__face--back" aria-hidden="true"></div>
           <div class="card__face card__face--front">
-            <img src="${cardDef.image}" alt="" class="card__image" />
-          </div>
-          <div class="card__face card__face--back" aria-hidden="true">
-            <div class="card__brand">Memory FABERLIC</div>
+            <img class="card__thumb" alt="" src="${cardDef.image}" />
+            <div class="card__label"></div>
           </div>
         </div>
       `;
+      const img = wrap.querySelector(".card__thumb");
+      const front = wrap.querySelector(".card__face--front");
+      front.style.background = gradientForCard(item.cardId);
+      img.addEventListener("error", () => {
+        img.style.display = "none";
+      });
+      wrap.querySelector(".card__label").textContent = cardDef.title;
       wrap.addEventListener("click", () => onCardClick(index));
       els.board.appendChild(wrap);
     });
@@ -268,9 +595,6 @@
     const row = els.board.querySelector(`[data-index="${index}"]`);
     if (!row) return;
     row.classList.toggle("is-flipped", flipped);
-    if (flipped && window.faberlicSounds) {
-      window.faberlicSounds.playFlip();
-    }
   }
 
   function setCardMatched(index) {
@@ -304,24 +628,16 @@
       session.score += SCORE_PAIR;
       updateHud();
 
-      if (window.faberlicSounds) {
-        window.faberlicSounds.playMatch();
-      }
-
       const def = getRoundDef(session.roundId);
-      const questionDef = pickNextQuestion(def, session.usedQuestionIds);
-      if (!questionDef) {
-        session.processing = false;
-        return;
-      }
-      pendingQuestion = { questionDef, pairScore: SCORE_PAIR };
+      const cardDef = def.cards.find((c) => c.id === c0);
+      pendingQuestion = { cardDef, pairScore: SCORE_PAIR };
 
       session.flipped = [];
       setCardMatched(i0);
       setCardMatched(i1);
 
       session.awaitingQuestion = true;
-      openQuestionModal(questionDef);
+      openQuestionModal(cardDef);
       session.processing = false;
     } else {
       window.setTimeout(() => {
@@ -333,12 +649,12 @@
     }
   }
 
-  function openQuestionModal(questionDef) {
+  function openQuestionModal(cardDef) {
     els.modal.hidden = false;
     document.body.style.overflow = "hidden";
 
     els.questionTitle.textContent = "Вопрос после пары";
-    els.questionText.textContent = questionDef.question;
+    els.questionText.textContent = cardDef.question;
     els.questionFeedback.hidden = true;
     els.btnConfirmAnswer.hidden = false;
     els.btnConfirmAnswer.disabled = true;
@@ -346,7 +662,7 @@
     els.questionAnswers.innerHTML = "";
     let selected = -1;
 
-    questionDef.answers.forEach((text, i) => {
+    cardDef.answers.forEach((text, i) => {
       const lab = document.createElement("label");
       lab.className = "answer";
       lab.innerHTML = `<input type="radio" name="q" value="${i}" /><span></span>`;
@@ -362,19 +678,19 @@
 
     els.btnConfirmAnswer.onclick = () => {
       if (selected < 0) return;
-      const ok = selected === questionDef.correctAnswer;
+      const ok = selected === cardDef.correctAnswer;
       if (ok) {
         session.score += SCORE_CORRECT;
         session.correctAnswers += 1;
       }
-      session.usedQuestionIds.add(questionDef.id);
+      session.usedQuestionIds.add(cardDef.id);
       updateHud();
 
       els.btnConfirmAnswer.hidden = true;
       els.questionFeedback.hidden = false;
       els.feedbackStatus.textContent = ok ? "Правильно!" : "Неправильно";
       els.feedbackStatus.style.color = ok ? "var(--color-success)" : "var(--color-error)";
-      els.feedbackCorrect.textContent = `Верный ответ: ${questionDef.answers[questionDef.correctAnswer]}`;
+      els.feedbackCorrect.textContent = `Верный ответ: ${cardDef.answers[cardDef.correctAnswer]}`;
       const pts = ok ? SCORE_CORRECT : 0;
       els.feedbackPoints.textContent = ok
         ? `Начислено +${pts} очков за ответ (всего за шаг: +${SCORE_PAIR + pts})`
@@ -427,14 +743,6 @@
     els.roundResultCorrect.textContent = `${correct} из ${PAIRS_PER_ROUND}`;
     els.roundResultScore.textContent = String(total);
     els.roundResultGrade.textContent = roundGrade(correct);
-
-    if (window.faberlicSounds) {
-      if (total === MAX_ROUND_SCORE) {
-        window.faberlicSounds.playPerfect();
-      } else {
-        window.faberlicSounds.playWin();
-      }
-    }
 
     session = null;
     activeRoundId = null;
@@ -538,9 +846,6 @@
   }
 
   wireUi();
-  if (window.faberlicSounds && typeof window.faberlicSounds.initToggle === "function") {
-    window.faberlicSounds.initToggle();
-  }
   showScreen("start");
 })();
 
@@ -560,15 +865,6 @@
  * @property {string} title
  * @property {string} description
  * @property {CardDef[]} cards
- * @property {QuestionDef[]=} questions
- */
-
-/**
- * @typedef {Object} QuestionDef
- * @property {string} id
- * @property {string} question
- * @property {string[]} answers
- * @property {number} correctAnswer
  */
 
 /**
